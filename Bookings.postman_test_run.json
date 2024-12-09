@@ -1,0 +1,194 @@
+{
+	"id": "47865ebd-b1fc-4775-b5df-206c98eac98b",
+	"name": "Bookings",
+	"timestamp": "2024-12-09T10:51:31.006Z",
+	"collection_id": "7953767-7767b9f0-6a57-4021-9874-1664182c4d09",
+	"folder_id": 0,
+	"environment_id": "7953767-d5e4b061-567d-493a-8125-3089413c2a49",
+	"totalPass": 12,
+	"delay": 0,
+	"persist": true,
+	"status": "finished",
+	"startedAt": "2024-12-09T10:51:26.582Z",
+	"totalFail": 0,
+	"results": [
+		{
+			"id": "769161a8-07b0-4f7f-b919-3c6e584ae51b",
+			"name": "GetBookingIds",
+			"url": "https://restful-booker.herokuapp.com/booking",
+			"time": 901,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Response time is less than 1000ms": true,
+				"The response has all properties": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response time is less than 1000ms": {
+					"pass": 1,
+					"fail": 0
+				},
+				"The response has all properties": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				901
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Response time is less than 1000ms": true,
+					"The response has all properties": true
+				}
+			]
+		},
+		{
+			"id": "d8796dee-934d-4a27-9cd2-dce42db4e479",
+			"name": "GetByBookingId",
+			"url": "https://restful-booker.herokuapp.com/booking/679",
+			"time": 223,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Response time is less than 1000ms": true,
+				"The response has all properties": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response time is less than 1000ms": {
+					"pass": 1,
+					"fail": 0
+				},
+				"The response has all properties": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				223
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Response time is less than 1000ms": true,
+					"The response has all properties": true
+				}
+			]
+		},
+		{
+			"id": "3800fd3f-37ff-44fd-9c22-64b774771475",
+			"name": "CreateBooking",
+			"url": "https://restful-booker.herokuapp.com/booking",
+			"time": 222,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Response time is less than 1000ms": true,
+				"The response has all properties": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response time is less than 1000ms": {
+					"pass": 1,
+					"fail": 0
+				},
+				"The response has all properties": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				222
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Response time is less than 1000ms": true,
+					"The response has all properties": true
+				}
+			]
+		},
+		{
+			"id": "f4793674-e7c0-464a-a70b-f08db40f8ed0",
+			"name": "PartialUpdateBooking",
+			"url": "https://restful-booker.herokuapp.com/booking/151",
+			"time": 231,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Response time is less than 1000ms": true,
+				"The response has all properties": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Response time is less than 1000ms": {
+					"pass": 1,
+					"fail": 0
+				},
+				"The response has all properties": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				231
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Response time is less than 1000ms": true,
+					"The response has all properties": true
+				}
+			]
+		}
+	],
+	"count": 1,
+	"totalTime": 1577,
+	"collection": {
+		"requests": [
+			{
+				"id": "769161a8-07b0-4f7f-b919-3c6e584ae51b",
+				"method": "GET"
+			},
+			{
+				"id": "d8796dee-934d-4a27-9cd2-dce42db4e479",
+				"method": "GET"
+			},
+			{
+				"id": "3800fd3f-37ff-44fd-9c22-64b774771475",
+				"method": "POST"
+			},
+			{
+				"id": "f4793674-e7c0-464a-a70b-f08db40f8ed0",
+				"method": "PATCH"
+			}
+		]
+	}
+}

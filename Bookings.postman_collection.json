@@ -1,0 +1,417 @@
+{
+	"info": {
+		"_postman_id": "7767b9f0-6a57-4021-9874-1664182c4d09",
+		"name": "Bookings",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "7953767"
+	},
+	"item": [
+		{
+			"name": "GetBookingIds",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"  pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 1000ms\", () => {\r",
+							"  pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"The response has all properties\", () => {\r",
+							"    const responseJson = pm.response.json();\r",
+							"    pm.expect(responseJson[0]).to.have.property(\"bookingid\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/booking",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"booking"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetByBookingId",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"let url = pm.environment.get(\"url\");\r",
+							"\r",
+							"window = {};\r",
+							"pm.sendRequest(\"https://cdnjs.cloudflare.com/ajax/libs/Faker/3.1.0/faker.min.js\", (error, response) => {\r",
+							"var text = response.text();\r",
+							"(new Function(text))();\r",
+							"let firstname = window.faker.name.firstName();\r",
+							"let lastname = window.faker.name.lastName();\r",
+							"pm.sendRequest({\r",
+							"        url:  url + '/booking',\r",
+							"        method: 'POST',\r",
+							"        header: {\r",
+							"            'Content-Type': 'application/json'\r",
+							"        },\r",
+							"        body: {\r",
+							"            mode: 'raw',\r",
+							"            raw: {\r",
+							"                \"firstname\" : firstname,\r",
+							"\t\t\t\t\"lastname\" : lastname,\r",
+							"\t\t\t\t\"totalprice\" : 111,\r",
+							"\t\t\t\t\"depositpaid\" : true,\r",
+							"\t\t\t\t\"bookingdates\" : {\r",
+							"\t\t\t\t\t\"checkin\" : \"2018-01-01\",\r",
+							"\t\t\t\t\t\"checkout\" : \"2019-01-01\"\r",
+							"\t\t\t\t},\r",
+							"\t\t\t\t\"additionalneeds\" : \"Breakfast\"\r",
+							"            }\r",
+							"        }\r",
+							"    }, function (err, res) {\r",
+							"        if (res.code === 200) {\r",
+							"            let response = res.json();\r",
+							"            pm.collectionVariables.set('bookid', response.bookingid);\r",
+							"\r",
+							"            console.log('Id set: ' + response.bookingid);\r",
+							"        }\r",
+							"        else {\r",
+							"            console.log(res);\r",
+							"            throw new Error('Create booking failed with status: ' + res.status);\r",
+							"        }\r",
+							"\r",
+							"});\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"  pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 1000ms\", function () {\r",
+							"  pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"The response has all properties\", function () {\r",
+							"    const responseJson = pm.response.text();\r",
+							"    pm.expect(responseJson).to.include(\"firstname\");\r",
+							"    pm.expect(responseJson).to.include(\"lastname\");\r",
+							"    pm.expect(responseJson).to.include(\"bookingdates\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/booking/{{bookid}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"booking",
+						"{{bookid}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateBooking",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"window = {};\r",
+							"pm.sendRequest(\"https://cdnjs.cloudflare.com/ajax/libs/Faker/3.1.0/faker.min.js\", (error, response) => {\r",
+							"var text = response.text();\r",
+							"(new Function(text))();\r",
+							"pm.collectionVariables.set('bookfirstname', window.faker.name.firstName());\r",
+							"pm.collectionVariables.set('booklastname', window.faker.name.lastName());\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Fixed the response time test\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"  pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 1000ms\", function () {\r",
+							"  pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"The response has all properties\", function () {\r",
+							"    const responseJson = pm.response.text();\r",
+							"    pm.expect(responseJson).to.include(\"bookingid\");\r",
+							"    pm.expect(responseJson).to.include(\"firstname\");\r",
+							"    pm.expect(responseJson).to.include(\"lastname\");\r",
+							"    pm.expect(responseJson).to.include(\"bookingdates\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n                \"firstname\" : \"{{bookfirstname}}\",\r\n\t\t\t\t\"lastname\" : \"{{booklastname}}\",\r\n\t\t\t\t\"totalprice\" : 111,\r\n\t\t\t\t\"depositpaid\" : true,\r\n\t\t\t\t\"bookingdates\" : {\r\n\t\t\t\t\t\"checkin\" : \"2018-01-01\",\r\n\t\t\t\t\t\"checkout\" : \"2019-01-01\"\r\n\t\t\t\t},\r\n\t\t\t\t\"additionalneeds\" : \"Breakfast\"\r\n            }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/booking",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"booking"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PartialUpdateBooking",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// Get Booking id\r",
+							"let url = pm.environment.get(\"url\");\r",
+							"let bookinguname = pm.environment.get(\"bookinguname\");\r",
+							"let bookingpwd = pm.environment.get(\"bookingpwd\");\r",
+							"pm.sendRequest({\r",
+							"        url:  url + '/booking',\r",
+							"        method: 'GET'\r",
+							"    }, function (err, res) {\r",
+							"        if (res.code === 200) {\r",
+							"            let response = res.json();\r",
+							"            const random = Math.floor(Math.random() * response.length);\r",
+							"            var randombookId = response[random].bookingid;\r",
+							"            pm.collectionVariables.set('patchbookid', randombookId);\r",
+							"\r",
+							"            console.log('randombookId: ' + randombookId);\r",
+							"        }\r",
+							"        else {\r",
+							"            console.log(res);\r",
+							"            throw new Error('Get Booking Ids failed with status: ' + res.status);\r",
+							"        }\r",
+							"\r",
+							"});\r",
+							"\r",
+							"// Get book token\r",
+							"pm.sendRequest({\r",
+							"        url:  url + '/auth',\r",
+							"        method: 'POST',\r",
+							"        header: {\r",
+							"            'Content-Type': 'application/json'\r",
+							"        },\r",
+							"        body: {\r",
+							"            mode: 'raw',\r",
+							"            raw: {\r",
+							"                \"username\" : bookinguname,\r",
+							"                \"password\" : bookingpwd\r",
+							"            }\r",
+							"        }\r",
+							"    }, function (err, res) {\r",
+							"        if (res.code === 200) {\r",
+							"            let response = res.json();\r",
+							"            pm.collectionVariables.set('booktoken', 'token=' + response.token);\r",
+							"\r",
+							"            console.log('booktoken: ' + response.token);\r",
+							"        }\r",
+							"        else {\r",
+							"            console.log(res);\r",
+							"            throw new Error('Auth call failed with status: ' + res.status);\r",
+							"        }\r",
+							"\r",
+							"});\r",
+							"\r",
+							"//Body\r",
+							"window = {};\r",
+							"pm.sendRequest(\"https://cdnjs.cloudflare.com/ajax/libs/Faker/3.1.0/faker.min.js\", (error, response) => {\r",
+							"var text = response.text();\r",
+							"(new Function(text))();\r",
+							"pm.collectionVariables.set('PatchFirstName', window.faker.name.firstName());\r",
+							"pm.collectionVariables.set('PatchLastName', window.faker.name.lastName());\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"  pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 1000ms\", function () {\r",
+							"  pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"The response has all properties\", function () {\r",
+							"    const responseJson = pm.response.text();\r",
+							"    pm.expect(responseJson).to.include(\"firstname\");\r",
+							"    pm.expect(responseJson).to.include(\"lastname\");\r",
+							"    pm.expect(responseJson).to.include(\"bookingdates\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Cookie",
+						"value": "{{booktoken}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstname\" : \"{{PatchFirstName}}\",\r\n    \"lastname\" : \"{{PatchLastName}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/booking/{{patchbookid}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"booking",
+						"{{patchbookid}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "bookid",
+			"value": ""
+		},
+		{
+			"key": "bookfirstname",
+			"value": ""
+		},
+		{
+			"key": "booklastname",
+			"value": ""
+		},
+		{
+			"key": "PatchFirstName",
+			"value": ""
+		},
+		{
+			"key": "PatchLastName",
+			"value": ""
+		},
+		{
+			"key": "booktoken",
+			"value": ""
+		},
+		{
+			"key": "patchbookid",
+			"value": ""
+		}
+	]
+}

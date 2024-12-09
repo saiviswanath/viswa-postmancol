@@ -65,9 +65,10 @@
 					"script": {
 						"exec": [
 							"let url = pm.environment.get(\"url\");\r",
+							"let fakerurl = pm.environment.get(\"fakerurl\");\r",
 							"\r",
 							"window = {};\r",
-							"pm.sendRequest(\"https://cdnjs.cloudflare.com/ajax/libs/Faker/3.1.0/faker.min.js\", (error, response) => {\r",
+							"pm.sendRequest(fakerurl, (error, response) => {\r",
 							"var text = response.text();\r",
 							"(new Function(text))();\r",
 							"let firstname = window.faker.name.firstName();\r",
@@ -160,8 +161,9 @@
 					"listen": "prerequest",
 					"script": {
 						"exec": [
+							"let fakerurl = pm.environment.get(\"fakerurl\");\r",
 							"window = {};\r",
-							"pm.sendRequest(\"https://cdnjs.cloudflare.com/ajax/libs/Faker/3.1.0/faker.min.js\", (error, response) => {\r",
+							"pm.sendRequest(fakerurl, (error, response) => {\r",
 							"var text = response.text();\r",
 							"(new Function(text))();\r",
 							"pm.collectionVariables.set('bookfirstname', window.faker.name.firstName());\r",
@@ -240,6 +242,7 @@
 							"let url = pm.environment.get(\"url\");\r",
 							"let bookinguname = pm.environment.get(\"bookinguname\");\r",
 							"let bookingpwd = pm.environment.get(\"bookingpwd\");\r",
+							"let fakerurl = pm.environment.get(\"fakerurl\");\r",
 							"pm.sendRequest({\r",
 							"        url:  url + '/booking',\r",
 							"        method: 'GET'\r",
@@ -289,7 +292,7 @@
 							"\r",
 							"//Body\r",
 							"window = {};\r",
-							"pm.sendRequest(\"https://cdnjs.cloudflare.com/ajax/libs/Faker/3.1.0/faker.min.js\", (error, response) => {\r",
+							"pm.sendRequest(fakerurl, (error, response) => {\r",
 							"var text = response.text();\r",
 							"(new Function(text))();\r",
 							"pm.collectionVariables.set('PatchFirstName', window.faker.name.firstName());\r",

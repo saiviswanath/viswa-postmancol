@@ -161,6 +161,8 @@
 					"listen": "prerequest",
 					"script": {
 						"exec": [
+							"const bookingdatesutilpckg =  pm.require('bookingdatesutil');\r",
+							"\r",
 							"let fakerurl = pm.environment.get(\"fakerurl\");\r",
 							"window = {};\r",
 							"pm.sendRequest(fakerurl, (error, response) => {\r",
@@ -168,10 +170,30 @@
 							"(new Function(text))();\r",
 							"pm.collectionVariables.set('bookfirstname', window.faker.name.firstName());\r",
 							"pm.collectionVariables.set('booklastname', window.faker.name.lastName());\r",
+							"pm.collectionVariables.set('bookprice', window.faker.commerce.price())\r",
+							";\r",
+							"const boolvalues = [true, false];\r",
+							"const random = Math.floor(Math.random() * boolvalues.length);\r",
+							"var randombool = boolvalues[random];\r",
+							"pm.collectionVariables.set('bookdepositpaid', randombool);\r",
+							"\r",
+							"var randomcheckindate = bookingdatesutilpckg.getYYYYMMDDDate(window.faker.date.recent());\r",
+							"pm.collectionVariables.set('bookcheckindate', randomcheckindate);\r",
+							"var randomcheckoutdate = bookingdatesutilpckg.getYYYYMMDDDate(window.faker.date.recent());\r",
+							"pm.collectionVariables.set('bookcheckoutdate', randomcheckoutdate);\r",
+							"\r",
+							"const addNeedsvalues = ['Breakfast', 'Internet', 'DTH'];\r",
+							"const random1 = Math.floor(Math.random() * addNeedsvalues.length);\r",
+							"var randomaddneeds = addNeedsvalues[random1];\r",
+							"pm.collectionVariables.set('bookaddneeds', randomaddneeds);\r",
 							"});"
 						],
 						"type": "text/javascript",
-						"packages": {}
+						"packages": {
+							"bookingdatesutil": {
+								"id": "0193afe9-cf11-7799-8720-0bac7f1729f9"
+							}
+						}
 					}
 				},
 				{
@@ -212,7 +234,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n                \"firstname\" : \"{{bookfirstname}}\",\r\n\t\t\t\t\"lastname\" : \"{{booklastname}}\",\r\n\t\t\t\t\"totalprice\" : 111,\r\n\t\t\t\t\"depositpaid\" : true,\r\n\t\t\t\t\"bookingdates\" : {\r\n\t\t\t\t\t\"checkin\" : \"2018-01-01\",\r\n\t\t\t\t\t\"checkout\" : \"2019-01-01\"\r\n\t\t\t\t},\r\n\t\t\t\t\"additionalneeds\" : \"Breakfast\"\r\n            }",
+					"raw": "{\r\n                \"firstname\" : \"{{bookfirstname}}\",\r\n\t\t\t\t\"lastname\" : \"{{booklastname}}\",\r\n\t\t\t\t\"totalprice\" : {{bookprice}},\r\n\t\t\t\t\"depositpaid\" : {{bookdepositpaid}},\r\n\t\t\t\t\"bookingdates\" : {\r\n\t\t\t\t\t\"checkin\" : \"{{bookcheckindate}}\",\r\n\t\t\t\t\t\"checkout\" : \"{{bookcheckoutdate}}\"\r\n\t\t\t\t},\r\n\t\t\t\t\"additionalneeds\" : \"{{bookaddneeds}}\"\r\n            }",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -414,6 +436,26 @@
 		},
 		{
 			"key": "patchbookid",
+			"value": ""
+		},
+		{
+			"key": "bookprice",
+			"value": ""
+		},
+		{
+			"key": "bookdepositpaid",
+			"value": ""
+		},
+		{
+			"key": "bookcheckindate",
+			"value": ""
+		},
+		{
+			"key": "bookcheckoutdate",
+			"value": ""
+		},
+		{
+			"key": "bookaddneeds",
 			"value": ""
 		}
 	]

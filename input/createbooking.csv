@@ -1,0 +1,4 @@
+firstname,lastname,totalprice,depositpaid,checkin,checkout,additionalneeds
+Sai,Palaparthi,100,true,2024-11-16,2024-11-17,Breakfast
+Viswa,Palaparthi,200,true,2024-11-15,2024-11-16,Internet
+Venkat,Palaparthi,300,true,2024-11-15,2024-11-16,Internet

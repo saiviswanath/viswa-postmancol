@@ -3,10 +3,14 @@
   <hashTree>
     <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="Heroku Api Test Plan">
       <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
-        <collectionProp name="Arguments.arguments"/>
+        <collectionProp name="Arguments.arguments">
+          <elementProp name="BaseInputPath" elementType="Argument">
+            <stringProp name="Argument.name">BaseInputPath</stringProp>
+            <stringProp name="Argument.value">C:\Users\E010672\Documents\Jmeter\input</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+        </collectionProp>
       </elementProp>
-      <boolProp name="TestPlan.functional_mode">false</boolProp>
-      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
     </TestPlan>
     <hashTree>
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="GetBookingIdsAPI Thread Group">
@@ -128,7 +132,7 @@
         </DebugSampler>
         <hashTree/>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="GetBookingApi Thread Group">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="GetBookingApi Thread Group" enabled="true">
         <intProp name="ThreadGroup.num_threads">5</intProp>
         <intProp name="ThreadGroup.ramp_time">0</intProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
@@ -155,7 +159,7 @@
           <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="BookingIds CSV Data Set Config">
             <stringProp name="delimiter">,</stringProp>
             <stringProp name="fileEncoding"></stringProp>
-            <stringProp name="filename">C:\Users\E010672\Documents\Jmeter\input\bookingid.csv</stringProp>
+            <stringProp name="filename">${BaseInputPath}\bookingid.csv</stringProp>
             <boolProp name="ignoreFirstLine">true</boolProp>
             <boolProp name="quotedData">false</boolProp>
             <boolProp name="recycle">true</boolProp>
@@ -164,7 +168,7 @@
             <stringProp name="variableNames">id</stringProp>
           </CSVDataSet>
           <hashTree/>
-          <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+          <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree">
             <boolProp name="ResultCollector.error_logging">false</boolProp>
             <objProp>
               <name>saveConfig</name>
@@ -264,7 +268,7 @@ vars.put(&quot;id&quot;,String.valueOf(id));</stringProp>
         </DebugSampler>
         <hashTree/>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="CreateBooking Thread Group">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="CreateBooking Thread Group" enabled="true">
         <intProp name="ThreadGroup.num_threads">3</intProp>
         <intProp name="ThreadGroup.ramp_time">1</intProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
@@ -317,7 +321,7 @@ vars.put(&quot;id&quot;,String.valueOf(id));</stringProp>
             </collectionProp>
           </HeaderManager>
           <hashTree/>
-          <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+          <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree">
             <boolProp name="ResultCollector.error_logging">false</boolProp>
             <objProp>
               <name>saveConfig</name>
@@ -355,7 +359,7 @@ vars.put(&quot;id&quot;,String.valueOf(id));</stringProp>
           </ResultCollector>
           <hashTree/>
           <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CreateBooking CSV Data Set Config">
-            <stringProp name="filename">C:\Users\E010672\Documents\Jmeter\input\createbooking.csv</stringProp>
+            <stringProp name="filename">${BaseInputPath}\\createbooking.csv</stringProp>
             <stringProp name="fileEncoding"></stringProp>
             <stringProp name="variableNames">firstname,lastname,totalprice,depositpaid,checkin,checkout,additionalneeds</stringProp>
             <boolProp name="ignoreFirstLine">true</boolProp>
@@ -374,7 +378,7 @@ vars.put(&quot;id&quot;,String.valueOf(id));</stringProp>
         </DebugSampler>
         <hashTree/>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="UpdateBooking Thread Group">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="UpdateBooking Thread Group" enabled="true">
         <intProp name="ThreadGroup.num_threads">1</intProp>
         <intProp name="ThreadGroup.ramp_time">1</intProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
@@ -432,7 +436,7 @@ vars.put(&quot;id&quot;,String.valueOf(id));</stringProp>
           </HeaderManager>
           <hashTree/>
           <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="UpdateBooking CSV Data Set Config">
-            <stringProp name="filename">C:\Users\E010672\Documents\Jmeter\input\updatebooking.csv</stringProp>
+            <stringProp name="filename">${BaseInputPath}\updatebooking.csv</stringProp>
             <stringProp name="fileEncoding"></stringProp>
             <stringProp name="variableNames">id,firstname,lastname,totalprice,depositpaid,checkin,checkout,additionalneeds,contenttype</stringProp>
             <boolProp name="ignoreFirstLine">true</boolProp>
@@ -443,7 +447,7 @@ vars.put(&quot;id&quot;,String.valueOf(id));</stringProp>
             <stringProp name="shareMode">shareMode.all</stringProp>
           </CSVDataSet>
           <hashTree/>
-          <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+          <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree">
             <boolProp name="ResultCollector.error_logging">false</boolProp>
             <objProp>
               <name>saveConfig</name>
@@ -638,7 +642,7 @@ vars.put(&quot;id&quot;,String.valueOf(id));</stringProp>
           </ResultCollector>
           <hashTree/>
           <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="Partial UpdateBooking CSV Data Set Config">
-            <stringProp name="filename">C:\Users\E010672\Documents\Jmeter\input\partialupatebooking.csv</stringProp>
+            <stringProp name="filename">${BaseInputPath}\partialupatebooking.csv</stringProp>
             <stringProp name="fileEncoding"></stringProp>
             <stringProp name="variableNames">id,firstname,lastname</stringProp>
             <boolProp name="ignoreFirstLine">true</boolProp>
@@ -649,7 +653,7 @@ vars.put(&quot;id&quot;,String.valueOf(id));</stringProp>
             <stringProp name="shareMode">shareMode.all</stringProp>
           </CSVDataSet>
           <hashTree/>
-          <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="UpateBooking HTTP Header Manager" enabled="true">
+          <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="UpateBooking HTTP Header Manager">
             <collectionProp name="HeaderManager.headers">
               <elementProp name="" elementType="Header">
                 <stringProp name="Header.name">Content-Type</stringProp>
@@ -667,7 +671,7 @@ vars.put(&quot;id&quot;,String.valueOf(id));</stringProp>
           </HeaderManager>
           <hashTree/>
         </hashTree>
-        <DebugSampler guiclass="TestBeanGUI" testclass="DebugSampler" testname="Debug Sampler" enabled="true">
+        <DebugSampler guiclass="TestBeanGUI" testclass="DebugSampler" testname="Debug Sampler">
           <boolProp name="displayJMeterProperties">false</boolProp>
           <boolProp name="displayJMeterVariables">true</boolProp>
           <boolProp name="displaySystemProperties">false</boolProp>
